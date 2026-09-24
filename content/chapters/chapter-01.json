@@ -1,0 +1,42 @@
+{
+  "id": "chapter-01",
+  "title": "灰烬中的来信",
+  "startNode": "intro",
+  "nodes": [
+    {
+      "id": "intro",
+      "type": "scene",
+      "location": "old-town",
+      "lines": [
+        { "speaker": "narrator", "text": "雨停之后，你在废墟里发现一封没有寄出的信。" },
+        { "speaker": "hero", "text": "信上的印记，和父亲失踪那天的一样。" }
+      ],
+      "choices": [
+        {
+          "id": "open-letter",
+          "text": "拆开信封",
+          "effects": [{ "op": "setFlag", "key": "read-letter", "value": true }],
+          "target": "letter"
+        },
+        {
+          "id": "find-witness",
+          "text": "先去找目击者",
+          "effects": [{ "op": "add", "key": "variables.caution", "value": 1 }],
+          "target": "witness"
+        }
+      ]
+    },
+    {
+      "id": "letter",
+      "type": "ending",
+      "endingId": "the-hidden-name",
+      "lines": [{ "speaker": "narrator", "text": "信中只写着一个名字：北境。" }]
+    },
+    {
+      "id": "witness",
+      "type": "ending",
+      "endingId": "the-silent-witness",
+      "lines": [{ "speaker": "narrator", "text": "钟楼下的老人看见了你，却转身关上了门。" }]
+    }
+  ]
+}
