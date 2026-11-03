@@ -1,0 +1,10 @@
+[
+  { "id": "city", "title": "雾港的记忆交易", "text": "雾港用记忆晶片储存往事。自愿交易记忆是合法的，但未经同意抽取记忆被禁止。", "keywords": ["城市", "雾港", "记忆", "交易", "晶片"], "characters": ["lin", "shen", "echo"] },
+  { "id": "letter", "title": "父亲的来信", "text": "你在旧港收到父亲陆远留下的信：午夜之前，把蓝色晶片带到无名灯塔；不要相信完整的记忆。信中的署名没有日期。", "keywords": ["父亲", "来信", "陆远", "灯塔", "日期"], "characters": ["lin", "shen", "echo"], "requiresFlag": "read-letter" },
+  { "id": "fracture", "title": "晶片中的双重刻痕", "text": "林汐检查发现蓝色晶片上有两次写入的刻痕。这说明记录被改写过，不能仅凭影像确定谁在现场。", "keywords": ["晶片", "改写", "刻痕", "影像", "修复"], "characters": ["lin", "echo"], "requiresFlag": "examined-chip" },
+  { "id": "consent", "title": "未签署的同意书", "text": "修复所的转存同意书只有陆远的签名，受试者签名栏为空。这只能证明同意手续缺失，无法证明具体是谁实施了抽取。", "keywords": ["同意", "签名", "证据", "抽取", "同意书"], "characters": ["lin", "shen", "echo"], "requiresFlag": "found-consent" },
+  { "id": "witness", "title": "巡夜人的证言", "text": "沈砚在停钟之夜见过陆远进入档案馆，但没有看见他离开。他记得灯塔曾闪烁三次蓝光。证言并非陆远仍然在世的证明。", "keywords": ["父亲", "巡夜", "陆远", "蓝光", "停钟", "证言"], "characters": ["shen", "echo"], "requiresFlag": "heard-witness" },
+  { "id": "ledger", "title": "断电登记簿", "text": "钟楼登记簿记载：事故发生前，档案馆申请过一次自愿断电；申请人身份被涂掉，时间是十一点五十七分。", "keywords": ["断电", "登记", "时间", "钟楼", "事故"], "characters": ["shen", "echo"], "requiresFlag": "found-ledger" },
+  { "id": "protocol", "title": "潮汐协议", "text": "回声解密的潮汐协议提出将全城居民记忆汇入灯塔，以预测灾难。协议缺乏居民授权；公开原始记录需要修复证据和钟楼登记簿共同校验。", "keywords": ["协议", "真相", "授权", "预测", "公开", "记录"], "characters": ["lin", "shen", "echo"], "requiresFlag": "decoded-protocol" },
+  { "id": "voice", "title": "一段无法认证的声音", "text": "晶片中的声音自称陆远，要求启动灯塔。回声指出这可能是本人留言，也可能是合成片段，当前没有足够证据认证。", "keywords": ["父亲", "声音", "合成", "启动", "活着"], "characters": ["lin", "shen", "echo"], "requiresFlag": "heard-voice" }
+]

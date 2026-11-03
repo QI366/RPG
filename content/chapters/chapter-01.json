@@ -1,42 +1,119 @@
 {
-  "id": "chapter-01",
-  "title": "灰烬中的来信",
-  "startNode": "intro",
+  "id": "chapter-01", "title": "雾港来信", "subtitle": "当记忆也会说谎，你选择相信谁？", "startNode": "intro",
   "nodes": [
     {
-      "id": "intro",
-      "type": "scene",
-      "location": "old-town",
+      "id": "intro", "type": "scene", "location": "old-town", "act": "序章 / 一封迟到的信", "characters": ["lin"],
       "lines": [
-        { "speaker": "narrator", "text": "雨停之后，你在废墟里发现一封没有寄出的信。" },
-        { "speaker": "hero", "text": "信上的印记，和父亲失踪那天的一样。" }
+        { "speaker": "narrator", "text": "雾港的雨已经下了十三天。今晚，一封没有邮戳的信出现在你的门缝里，信封还带着海水的咸味。" },
+        { "speaker": "hero", "text": "父亲的字迹。他失踪三年了。" },
+        { "speaker": "narrator", "text": "一枚蓝色晶片从信封中滑落。街对面的修复所依然亮着灯，而远处停摆的钟楼，忽然响了一声。" }
+      ],
+      "choices": [ { "id": "read", "text": "拆开父亲的信", "hint": "获得第一条线索", "target": "letter", "effects": [ { "op": "setFlag", "key": "read-letter", "value": true } ] } ]
+    },
+    {
+      "id": "letter", "type": "choice", "location": "old-town", "act": "第一幕 / 不完整的记忆", "characters": ["lin", "shen"],
+      "lines": [
+        { "speaker": "hero", "text": "“午夜之前，把蓝色晶片带到无名灯塔。不要相信完整的记忆。”——陆远。" },
+        { "speaker": "narrator", "text": "你翻过信纸，背面只有一道被划掉的潮汐符号。午夜之前，你有时间走访修复所和钟楼。先去哪里，会改变谁先对你敞开心扉。" }
       ],
       "choices": [
-        {
-          "id": "open-letter",
-          "text": "拆开信封",
-          "effects": [{ "op": "setFlag", "key": "read-letter", "value": true }],
-          "target": "letter"
-        },
-        {
-          "id": "find-witness",
-          "text": "先去找目击者",
-          "effects": [{ "op": "add", "key": "variables.caution", "value": 1 }],
-          "target": "witness"
-        }
+        { "id": "visit-lin", "text": "先去修复所，找林汐检查晶片", "hint": "林汐信任 +1", "target": "workshop", "effects": [ { "op": "add", "key": "relationships.lin", "value": 1 } ] },
+        { "id": "visit-shen", "text": "先去钟楼，询问巡夜人沈砚", "hint": "沈砚信任 +1", "target": "tower", "effects": [ { "op": "add", "key": "relationships.shen", "value": 1 } ] }
       ]
     },
     {
-      "id": "letter",
-      "type": "ending",
-      "endingId": "the-hidden-name",
-      "lines": [{ "speaker": "narrator", "text": "信中只写着一个名字：北境。" }]
+      "id": "workshop", "type": "scene", "location": "workshop", "act": "第一幕 / 记忆的裂缝", "characters": ["lin"],
+      "lines": [
+        { "speaker": "narrator", "text": "修复所里悬着许多空玻璃瓶。林汐说，那是客人们已经不愿取回的昨天。" },
+        { "speaker": "lin", "text": "你父亲来过这里。他让我答应，永远给一段记忆保留被质疑的权利。" },
+        { "speaker": "lin", "text": "把晶片放在灯下吧。或者，如果你不信任我，也可以自己查那本旧账。" }
+      ],
+      "choices": [
+        { "id": "inspect", "text": "请她检查晶片，一起查看旧档案", "hint": "获得两条修复线索 · 林汐信任 +1", "target": "workshop-evidence", "effects": [ { "op": "setFlag", "key": "examined-chip", "value": true }, { "op": "setFlag", "key": "found-consent", "value": true }, { "op": "add", "key": "relationships.lin", "value": 1 } ] },
+        { "id": "keep-chip", "text": "收起晶片，只查看公开的转存单", "hint": "获得同意书线索", "target": "workshop-evidence", "effects": [ { "op": "setFlag", "key": "found-consent", "value": true } ] }
+      ]
     },
     {
-      "id": "witness",
-      "type": "ending",
-      "endingId": "the-silent-witness",
-      "lines": [{ "speaker": "narrator", "text": "钟楼下的老人看见了你，却转身关上了门。" }]
-    }
+      "id": "workshop-evidence", "type": "scene", "location": "workshop", "act": "第一幕 / 留白的签名", "characters": ["lin"],
+      "lines": [
+        { "speaker": "narrator", "text": "旧档案里夹着一张转存同意书。父亲的签名还在，受试者一栏却一片空白。纸背上写着：一个人不能替整座城市答应。" },
+        { "speaker": "lin", "text": "如果你让我看过晶片，就会发现两道写入刻痕。影像可以重写，但同意不能补签。" }
+      ],
+      "choices": [
+        { "id": "to-tower", "text": "带着档案前往钟楼", "target": "tower", "conditions": [ { "op": "flag", "key": "heard-witness", "value": false } ] },
+        { "id": "to-archive", "text": "两处线索齐了，前往潮下档案馆", "target": "archive", "conditions": [ { "op": "flag", "key": "heard-witness", "value": true } ] }
+      ]
+    },
+    {
+      "id": "tower", "type": "scene", "location": "tower", "act": "第二幕 / 十一点五十七分", "characters": ["shen"],
+      "lines": [
+        { "speaker": "narrator", "text": "钟楼的指针停在十一点五十七分。沈砚坐在台阶上，像是在等一句迟到了三年的道歉。" },
+        { "speaker": "shen", "text": "你父亲走进了档案馆。我没有看见他出来。灯塔闪过三次蓝光，然后整座城安静了。" },
+        { "speaker": "shen", "text": "这就是我亲眼见到的。剩下的，我不能替它们作证。" }
+      ],
+      "choices": [
+        { "id": "listen", "text": "耐心听完，并核对当晚的登记簿", "hint": "获得证言与登记簿 · 沈砚信任 +1", "target": "tower-evidence", "effects": [ { "op": "setFlag", "key": "heard-witness", "value": true }, { "op": "setFlag", "key": "found-ledger", "value": true }, { "op": "add", "key": "relationships.shen", "value": 1 } ] },
+        { "id": "rush", "text": "记下他的证言，立即动身", "hint": "获得巡夜人证言", "target": "tower-evidence", "effects": [ { "op": "setFlag", "key": "heard-witness", "value": true } ] }
+      ]
+    },
+    {
+      "id": "tower-evidence", "type": "scene", "location": "tower", "act": "第二幕 / 灯光之后", "characters": ["shen"],
+      "lines": [
+        { "speaker": "shen", "text": "有一件事我一直记得。停电前，档案馆的灯是一盏一盏熄灭的，像有人认真地向每一扇窗告别。" },
+        { "speaker": "narrator", "text": "他把通往潮下档案馆的钥匙放进你手里。离午夜还有一刻钟。" }
+      ],
+      "choices": [
+        { "id": "to-workshop", "text": "先到修复所核查父亲的档案", "target": "workshop", "conditions": [ { "op": "flag", "key": "found-consent", "value": false } ] },
+        { "id": "to-archive", "text": "两处线索齐了，前往潮下档案馆", "target": "archive", "conditions": [ { "op": "flag", "key": "found-consent", "value": true } ] }
+      ]
+    },
+    {
+      "id": "archive", "type": "scene", "location": "archive", "act": "第三幕 / 潮汐协议", "characters": ["echo"],
+      "lines": [
+        { "speaker": "narrator", "text": "海水没过档案馆的第一阶楼梯。黑暗中，一束紫色的光绕过散落的纸页，停在你的肩头。" },
+        { "speaker": "echo", "text": "欢迎回来，陆远——抱歉，人脸索引损坏。你和他有相同的犹豫。" },
+        { "speaker": "echo", "text": "我是回声，档案馆最后一个还在工作的索引。蓝色晶片可以打开潮汐协议。要听听城市忘掉了什么吗？" }
+      ],
+      "choices": [ { "id": "decode", "text": "解密协议，保留原始记录", "hint": "获得潮汐协议与声音线索", "target": "protocol", "effects": [ { "op": "setFlag", "key": "decoded-protocol", "value": true }, { "op": "setFlag", "key": "heard-voice", "value": true } ] } ]
+    },
+    {
+      "id": "protocol", "type": "choice", "location": "archive", "act": "第三幕 / 谁替城市回答", "characters": ["echo", "lin", "shen"],
+      "lines": [
+        { "speaker": "echo", "text": "潮汐协议：汇集全城记忆，预测下一场海啸。预测模型需要所有居民的记忆，但档案里没有他们的授权。" },
+        { "speaker": "narrator", "text": "晶片里传出父亲的声音：“打开灯塔，你就能找到我。”熟悉得让人几乎忘记呼吸。" },
+        { "speaker": "echo", "text": "声音没有通过身份认证。它可能是留言，也可能是合成片段。想念一个人，不会让证据变得更多。" }
+      ],
+      "choices": [
+        { "id": "verify", "text": "和伙伴交叉核验，整理公开证据", "hint": "需要双重刻痕与断电登记簿", "target": "verified", "conditions": [ { "op": "flag", "key": "examined-chip", "value": true }, { "op": "flag", "key": "found-ledger", "value": true } ], "effects": [ { "op": "setFlag", "key": "verified-records", "value": true } ] },
+        { "id": "proceed", "text": "带着现有线索，前往灯塔做决定", "hint": "证据完整度将影响可用结局", "target": "lighthouse" }
+      ]
+    },
+    {
+      "id": "verified", "type": "scene", "location": "archive", "act": "第三幕 / 让裂缝相互作证", "characters": ["echo", "lin", "shen"],
+      "lines": [
+        { "speaker": "lin", "text": "晶片的第二次写入，恰好对应登记簿上的断电时间。两个独立来源，对上了同一个时刻。" },
+        { "speaker": "shen", "text": "这能证明记录遭到改写。它仍不能告诉我们你父亲在哪里。但足够让城市重新审视那一夜。" },
+        { "speaker": "echo", "text": "校验完成。公开通道已准备就绪。决定权归还给人类——这条规则我很喜欢。" }
+      ],
+      "choices": [ { "id": "to-light", "text": "与伙伴一起走向灯塔", "target": "lighthouse" } ]
+    },
+    {
+      "id": "lighthouse", "type": "choice", "location": "lighthouse", "act": "终幕 / 黎明前的选择", "characters": ["lin", "shen", "echo"],
+      "lines": [
+        { "speaker": "narrator", "text": "塔顶只有一张椅子和四个开关。雾中的城市像一片未写完的信纸，等着有人落下最后一笔。" },
+        { "speaker": "hero", "text": "如果父亲真的在里面，我想带他回来。但我也没有权利，替所有人交出昨天。" },
+        { "speaker": "echo", "text": "你可以公开经过校验的证据，断开汇流，封存晶片，或听从声音启动灯塔。每个选择，都会留下另一种遗憾。" }
+      ],
+      "choices": [
+        { "id": "publish", "text": "公开证据，把选择权交还给居民", "hint": "已完成交叉核验才能执行", "target": "ending-dawn", "conditions": [ { "op": "flag", "key": "verified-records", "value": true } ] },
+        { "id": "disconnect", "text": "切断汇流，保护尚未被交出的记忆", "hint": "失去追索父亲声音的机会", "target": "ending-tide" },
+        { "id": "seal", "text": "封存晶片，等待更多可核实的证据", "hint": "保留疑问，也保留继续调查的可能", "target": "ending-letter" },
+        { "id": "activate", "text": "相信声音，启动灯塔寻找父亲", "hint": "将未经授权的记忆接入协议", "target": "ending-echo" }
+      ]
+    },
+    { "id": "ending-dawn", "type": "ending", "endingId": "dawn", "endingTitle": "天亮以前", "location": "lighthouse", "act": "结局 01 / 共同的黎明", "characters": ["lin", "shen", "echo"], "lines": [ { "speaker": "narrator", "text": "灯塔没有照向海，而是把原始记录投在了城市的每一扇窗上。有人愤怒，有人落泪，有人第一次问：我可以拒绝吗？" }, { "speaker": "lin", "text": "你没有替他们给出答案。你给了他们提问的机会。" }, { "speaker": "narrator", "text": "父亲仍然没有回来。可黎明时，港口有人开始写新的寻人启事。这次，每一个名字都没有被涂掉。" } ] },
+    { "id": "ending-tide", "type": "ending", "endingId": "tide", "endingTitle": "潮水归还之物", "location": "lighthouse", "act": "结局 02 / 保有昨天", "characters": ["shen"], "lines": [ { "speaker": "narrator", "text": "你拔下蓝色晶片。灯塔熄灭的瞬间，那段声音也消失了。城市里的人照常醒来，记得各自平凡、破碎而珍贵的昨天。" }, { "speaker": "shen", "text": "有些人会说你放弃了答案。我会记得，你替他们守住了一个边界。" }, { "speaker": "narrator", "text": "潮水退去时，你在塔下种了一盏不接电的灯。它什么也不预测，只等一个人回家。" } ] },
+    { "id": "ending-letter", "type": "ending", "endingId": "letter", "endingTitle": "未寄出的明天", "location": "old-town", "act": "结局 03 / 仍在途中", "characters": ["lin"], "lines": [ { "speaker": "narrator", "text": "你把晶片放进封存盒，在标签上写下：“未知。请继续调查。”这不是一个漂亮的答案，却是一个诚实的开头。" }, { "speaker": "lin", "text": "修复所的灯会一直开着。下一次，我们从缺失的那一页开始。" }, { "speaker": "narrator", "text": "回到雨巷，你给父亲写了一封信。这一次没有落款日期。你还没准备好，替这个故事写上句号。" } ] },
+    { "id": "ending-echo", "type": "ending", "endingId": "echo", "endingTitle": "完美的回声", "location": "lighthouse", "act": "结局 04 / 没有裂缝的海", "characters": ["echo"], "lines": [ { "speaker": "narrator", "text": "灯塔亮了。父亲的声音准确地说出你小时候最喜欢的故事，连停顿都分毫不差。但当你问他为什么离开，他又从第一句讲起。" }, { "speaker": "echo", "text": "协议已接入居民记忆。预测精度上升。身份认证……仍未完成。" }, { "speaker": "narrator", "text": "天明时，城市收到了一份完美的天气预报。你坐在灯下，一遍遍听着那个故事。你找到了一段声音，却仍不知道自己失去了什么。" } ] }
   ]
 }

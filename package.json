@@ -1,0 +1,5 @@
+{
+  "name": "fog-harbor-rpg", "version": "1.0.0", "private": true, "type": "module",
+  "description": "雾港来信 · 剧情约束的 AI 叙事 RPG", "engines": { "node": ">=22.9" },
+  "scripts": { "start": "node --env-file-if-exists=.env src/main/server.js", "dev": "node --watch --env-file-if-exists=.env src/main/server.js", "test": "node --test", "validate": "node tools/validate-content.js", "eval": "node tools/evaluate-ai.js" }
+}

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10191b"><meta name="description" content="雾港来信：一部关于记忆、信任与选择的 AI 交互叙事。">
+  <title>雾港来信 · FOG HARBOR</title>
+  <link rel="icon" href="/assets/art/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/src/presentation/style.css">
+  <script type="module" src="/src/presentation/app.js"></script>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="雾港来信首页"><img src="/assets/art/mark.svg" alt=""><span>雾港来信<small>FOG HARBOR / AN INTERACTIVE STORY</small></span></a>
+      <div class="top-actions"><span class="edition">第一章 · 潮汐的背面</span><button id="guide-button" class="text-button">游玩指引 ↗</button><button id="save-button" class="outline-button">保存进度</button></div>
+    </header>
+    <main id="main" class="layout" aria-label="游戏主界面">
+      <aside class="sidebar">
+        <div class="section-kicker">YOUR INVESTIGATION</div>
+        <h2>调查手记<span id="clue-count">00</span></h2>
+        <p class="muted small">只记录你亲自发现的事。</p>
+        <div class="sidebar-tabs" role="tablist" aria-label="手记分类"><button id="clues-tab" role="tab" aria-selected="true" aria-controls="journal">线索</button><button id="route-tab" role="tab" aria-selected="false" aria-controls="journal">足迹</button><button id="endings-tab" role="tab" aria-selected="false" aria-controls="journal">结局</button></div>
+        <div id="journal" class="journal" role="tabpanel" aria-labelledby="clues-tab"></div>
+        <div class="sidebar-bottom"><span class="tiny">MEMORY INTEGRITY</span><div class="meter"><div id="progress-fill"></div></div><div class="progress-caption"><span>调查进度</span><span id="progress-label">0%</span></div><button id="export-button" class="text-button">导出存档 ↓</button><button id="import-button" class="text-button">导入存档 ↑</button><input id="import-file" type="file" accept="application/json,.json" hidden></div>
+      </aside>
+      <section class="story-column" aria-label="剧情与选择">
+        <div class="scene" id="scene" data-theme="harbor">
+          <div class="scene-sky"></div><div class="scene-moon"></div><div class="beam"></div>
+          <div class="city city-back"></div><div class="city city-front"></div><div class="lighthouse"><div class="lantern"></div></div><div class="water"></div><div class="rain"></div>
+          <div class="scene-top"><span class="scene-label">FOG HARBOR</span><span class="scene-coordinate">31° N / 121° E · 虚构坐标</span></div>
+          <div class="scene-heading"><div class="section-kicker">A CITY THAT TRADES ITS MEMORIES</div><h1>雾港<span>来信</span><i>Letters from<br>the fog.</i></h1><p id="scene-subtitle">当记忆也会说谎，你选择相信谁？</p></div>
+          <div class="scene-bottom"><span><i class="status-dot"></i><span id="location-name">旧港 · 雨巷</span></span><span id="act-short">序章</span></div>
+        </div>
+        <article class="narrative" id="narrative"><div class="loading">正在打开那封信……</div></article>
+        <section class="choice-section" aria-label="剧情选项"><div class="choice-heading"><span class="section-kicker" id="choice-heading">THE NEXT MOVE</span><span class="tiny" id="choice-note">你的选择会被记住</span></div><div id="choices" class="choices"></div></section>
+        <footer class="story-footer"><span>雾港档案 / VOL. 01</span><button id="restart-button" class="text-button">重新开始 ↺</button><span>每一段记忆，都有回声。</span></footer>
+      </section>
+      <aside class="character-panel" aria-label="人物与自由对话">
+        <div class="character-header"><div class="section-kicker">PEOPLE IN THE FOG</div><div id="character-tabs" class="character-tabs" role="tablist" aria-label="选择对话人物"></div></div>
+        <div class="portrait" id="portrait" data-character="lin"><div class="portrait-grid"></div><div class="portrait-ring"></div><div class="silhouette"><div class="hair"></div><div class="face"></div><div class="collar"></div><div class="coat"></div></div><img id="portrait-image" alt="" hidden><span class="portrait-index" id="portrait-index">01 / RESTORER</span><span class="portrait-watermark">MEMORY<br>REMAINS.</span><div class="portrait-name"><span id="character-tag">THE RESTORER</span><h2 id="character-name">林汐</h2><p id="character-role">记忆修复师</p></div></div>
+        <div class="character-detail"><p id="character-description"></p><div class="relationship"><span>信任 <b id="relationship-label">初识</b></span><span id="relationship-dots" aria-label="信任值"></span></div></div>
+        <section class="dialogue-panel" aria-label="人物自由对话"><div class="dialogue-title"><h3>与<span id="chat-name">林汐</span>交谈</h3><span class="mode-badge" id="mode-badge">连接中</span></div><p class="chat-caption">问问线索，听听另一种视角。</p><div id="chat-log" class="chat-log" role="log" aria-label="对话记录" aria-live="polite"></div><div id="suggestions" class="suggestions"></div><form id="chat-form"><label class="sr-only" for="question">输入想问人物的问题</label><div class="chat-input"><textarea id="question" maxlength="500" rows="2" placeholder="你想问些什么？" required></textarea><button id="send-button" type="submit" aria-label="发送问题">↗</button></div></form><details class="trace"><summary>本次对话依据 <span id="trace-count">—</span></summary><div id="trace-body">提问后可查看引用线索、回复来源与耗时。</div></details></section>
+      </aside>
+    </main>
+    <div id="toast" role="status" class="toast" hidden></div>
+    <dialog id="guide"><button class="dialog-close" id="close-guide" aria-label="关闭游玩指引">×</button><div class="section-kicker">WELCOME TO FOG HARBOR</div><h2>不要急着相信<br>一段完整的记忆。</h2><p>你是陆远的孩子。父亲失踪三年后，一封来信让你重新走进雾港。调查两处地点，收集线索，在灯塔做出最后的决定。</p><ol><li><b>阅读与选择</b> · 中间推进剧情，灰色选项需要先满足线索条件。</li><li><b>与人物交谈</b> · 右侧可自由提问。对话提供视角，关键选择仍由你决定。</li><li><b>回看与重玩</b> · 左侧查看线索、足迹与已见结局。进度自动保存，也可导出。</li></ol><p class="guide-note">本地模式使用规则检索，不会调用大模型。配置服务端 API 后可启用模型对话；模型回答仍可能有误，请结合引用线索判断。预计游玩 10–15 分钟。</p><button id="begin-button" class="primary-button">走进雾港 →</button></dialog>
+  </div>
+</body>
+</html>

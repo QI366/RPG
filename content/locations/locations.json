@@ -1,0 +1,7 @@
+[
+  { "id": "old-town", "name": "旧港 · 雨巷", "subtitle": "潮水退去，秘密留下。", "theme": "harbor" },
+  { "id": "workshop", "name": "拾光修复所", "subtitle": "每一道裂缝，都曾是一段人生。", "theme": "workshop" },
+  { "id": "tower", "name": "停摆的钟楼", "subtitle": "所有时钟都停在十一点五十七分。", "theme": "tower" },
+  { "id": "archive", "name": "潮下档案馆", "subtitle": "城市遗忘的，海替它记着。", "theme": "archive" },
+  { "id": "lighthouse", "name": "无名灯塔", "subtitle": "灯亮起以前，你还有一次选择。", "theme": "lighthouse" }
+]
